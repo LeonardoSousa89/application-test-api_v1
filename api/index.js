@@ -31,7 +31,6 @@ server.route('/app/users/:id').get(methods.authenticateUser,async(req, res)=>{
                         .from('user_app_data')
                         .then(_        => res.status(201).send('Data inserted.'))
                         .catch(err     => res.status(404).send(err))
-
 })
 
 server.route('/app/create-account').post(async(req, res)=>{
@@ -54,40 +53,6 @@ server.route('/app/create-account').post(async(req, res)=>{
                          .catch(_     => res.status(400).send('Username or Email invalid.'))
  })
 
-//terá atençãp depois junto aos métodos put e delete com associação dos dados
- server.route('/app/delete-account/:id').delete(async(req, res)=>{
-
-    /**
-     * para deletar esta conta preciso 1° preciso 
-     * excluir os dados associados
-     * para depois exclui-la  
-     */
-
-    const USER = { ...req.body }
-
-    try{
-                        methods.existsOrError(USER.email,   'Email invalid.')
-                        methods.existsOrError(USER.pass,    'Pass invalid.')
-    }catch(err){
-                        return res.status(400).send(err)
-    }
-
-    // sem o async / await e o método first() ele retornará sempre 200 (por quê?)
-    const search =      await db.where({email: USER.email}).from('user_app').first()
-
-    if(!search) return res.status(404).send('User not found.')
-
-    if(search){
-                        const passwordCompare = bcrypt.compareSync(USER.pass,search.pass)
-
-        if(!passwordCompare) return res.status(401).send('You cannot delete this account.')
-
-        if(passwordCompare) return res.status(200).send('Loading to delete...')
-
-    }
- })
-
- //método login
  server.route('/app/login').post(async(req,res)=>{
     const USER = { ...req.body }
 
@@ -121,7 +86,6 @@ server.route('/app/create-account').post(async(req, res)=>{
                         })
                         .catch(err => res.status(400).json(err))
         }
-
     }
  })
 
