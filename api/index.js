@@ -4,6 +4,8 @@ const bcrypt    = require('bcrypt')
 const express   = require('express')
 const server    = express.Router()
 
+const { Secret } = require('../.env')
+const jsonwebtoken = require('jsonwebtoken')
 
 
 server.route('/app/users/:id').get(async(req, res)=>{
@@ -19,9 +21,9 @@ server.route('/app/users/:id').get(async(req, res)=>{
     const USER = { ...req.body }
 
     const data = {
-        title: USER.title,
-        anotation: USER.anotation,
-        id_user_app_data: req.params.id
+                        title: USER.title,
+                        anotation: USER.anotation,
+                        id_user_app_data: req.params.id
     }
 
     return await db.insert(data)
@@ -63,19 +65,19 @@ server.route('/app/create-account').post(async(req, res)=>{
     const USER = { ...req.body }
 
     try{
-        methods.existsOrError(USER.email,   'Email invalid.')
-        methods.existsOrError(USER.pass,    'Pass invalid.')
+                        methods.existsOrError(USER.email,   'Email invalid.')
+                        methods.existsOrError(USER.pass,    'Pass invalid.')
     }catch(err){
-            return res.status(400).send(err)
+                        return res.status(400).send(err)
     }
 
     // sem o async / await e o método first() ele retornará sempre 200 (por quê?)
-    const search =  await db.where({email: USER.email}).from('user_app').first()
+    const search =      await db.where({email: USER.email}).from('user_app').first()
 
     if(!search) return res.status(404).send('User not found.')
 
     if(search){
-        const passwordCompare = bcrypt.compareSync(USER.pass,search.pass)
+                        const passwordCompare = bcrypt.compareSync(USER.pass,search.pass)
 
         if(!passwordCompare) return res.status(401).send('You cannot delete this account.')
 
@@ -84,9 +86,42 @@ server.route('/app/create-account').post(async(req, res)=>{
     }
  })
 
-
  //método login
  server.route('/app/login').post(async(req,res)=>{
+    const USER = { ...req.body }
 
+    try{
+                        methods.existsOrError(USER.email,   'Email invalid.')
+                        methods.existsOrError(USER.pass,    'Pass invalid.')
+    }catch(err){
+                        return res.status(400).send(err)
+    }
+
+    const search =      await db.where({email: USER.email}).from('user_app').first()
+
+    if(!search) return res.status(404).send('User not found.')
+
+    if(search){
+        const passwordCompare = bcrypt.compareSync(USER.pass,search.pass)
+
+        if(!passwordCompare) return res.status(401).send('Email/password invalid.')
+
+        if(passwordCompare) {
+
+            return db.where({email: USER.email})
+                        .first()
+                        .table('user_app')
+                        .then(response => {
+                            const _token = jsonwebtoken.sign({id_user: response.id_user},Secret,{ expiresIn: 60 * 60 })
+                            res.status(200).json({
+                                id_user:response.id_user,
+                                auth:true,
+                                token: _token,
+                            })
+                        })
+                        .catch(err => res.status(400).json(err))
+        }
+
+    }
  })
 module.exports = server
