@@ -76,7 +76,7 @@ server.route('/app/create-account').post(async(req, res)=>{
 
             return db.where({email: USER.email})
                         .first()
-                        .table('user_app')
+                        .from('user_app')
                         .then(response => {
                             res.status(200).json({
                                 id_user:response.id_user,
