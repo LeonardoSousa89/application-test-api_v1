@@ -4,11 +4,12 @@ const bcrypt    = require('bcrypt')
 const express   = require('express')
 const server    = express.Router()
 
-const { Secret } = require('../.env')
-const jsonwebtoken = require('jsonwebtoken')
+const { Secret }    = require('../.env')
+const jsonwebtoken  = require('jsonwebtoken')
 
 
-server.route('/app/users/:id').get(async(req, res)=>{
+
+server.route('/app/users/:id').get(methods.authenticateUser,async(req, res)=>{
 
    return await db.select(['id_user','username','email','id_data','title','anotation'])
                         .from('user_app')
@@ -17,7 +18,7 @@ server.route('/app/users/:id').get(async(req, res)=>{
                         .then(response => res.status(200).json(response))
                         .catch(err     => res.status(404).send(err))
 
-}).post(async(req, res)=>{
+}).post(methods.authenticateUser,async(req, res)=>{
     const USER = { ...req.body }
 
     const data = {
@@ -112,11 +113,10 @@ server.route('/app/create-account').post(async(req, res)=>{
                         .first()
                         .table('user_app')
                         .then(response => {
-                            const _token = jsonwebtoken.sign({id_user: response.id_user},Secret,{ expiresIn: 60 * 60 })
                             res.status(200).json({
                                 id_user:response.id_user,
                                 auth:true,
-                                token: _token,
+                                _token: jsonwebtoken.sign({id_user: response.id_user},Secret,{ expiresIn: 60 * 5 }),
                             })
                         })
                         .catch(err => res.status(400).json(err))
@@ -124,4 +124,7 @@ server.route('/app/create-account').post(async(req, res)=>{
 
     }
  })
+
+
+
 module.exports = server
