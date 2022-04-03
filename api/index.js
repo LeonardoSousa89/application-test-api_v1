@@ -54,6 +54,12 @@ server.route('/app/create-account').post(async(req, res)=>{
 
  server.route('/app/delete-account/:id').delete(async(req, res)=>{
 
+    /**
+     * para deletar esta conta preciso 1° preciso 
+     * excluir os dados associados
+     * para depois exclui-la  
+     */
+
     const USER = { ...req.body }
 
     try{
@@ -63,7 +69,7 @@ server.route('/app/create-account').post(async(req, res)=>{
             return res.status(400).send(err)
     }
 
-    // sem o async / await e o metodo first() ele retornará sempre 200 (por quê?)
+    // sem o async / await e o método first() ele retornará sempre 200 (por quê?)
     const search =  await db.where({email: USER.email}).from('user_app').first()
 
     if(!search) return res.status(404).send('User not found.')
@@ -73,16 +79,9 @@ server.route('/app/create-account').post(async(req, res)=>{
 
         if(!passwordCompare) return res.status(401).send('You cannot delete this account.')
 
-        if(passwordCompare){
+        if(passwordCompare) return res.status(200).send('Loading to delete...')
 
-             db.where('id_user', USER.id)
-                            .delete(USER)
-                            .from('user_app')
-                            .then(_      => res.status(204).send('User deleted.'))
-                            .catch(err   => res.status(400).send(err))
-
-        }
-}
+    }
  })
 
 module.exports = server
