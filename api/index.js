@@ -51,7 +51,7 @@ server.route('/app/create-account').post(async(req, res)=>{
                          .catch(_     => res.status(400).send('Username or Email invalid.'))
  })
 
-
+//terá atençãp depois junto aos métodos put e delete com associação dos dados
  server.route('/app/delete-account/:id').delete(async(req, res)=>{
 
     /**
@@ -84,4 +84,9 @@ server.route('/app/create-account').post(async(req, res)=>{
     }
  })
 
+
+ //método login
+ server.route('/app/login').post(async(req,res)=>{
+
+ })
 module.exports = server

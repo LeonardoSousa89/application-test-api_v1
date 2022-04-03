@@ -9,4 +9,8 @@ function cryptr(pass){
     return bcrypt.hashSync(pass,salt)
 }
 
-module.exports = {existsOrError , cryptr}
+function authenticateUser(){
+    return []
+}
+
+module.exports = {existsOrError , cryptr, authenticateUser}
