@@ -1,0 +1,13 @@
+[{
+    "username":"devNode89",
+    "email":"devnode@gmail.com",
+    "pass":"1234",  
+        "title":"node",
+        "anotation":"node development studies skill"
+},{
+    "username":"devNodeJr89",
+    "email":"devnode89@gmail.com",
+    "pass":"1234",  
+        "title":"node",
+        "anotation":"node and postgres studies to advanced skills"
+}]
