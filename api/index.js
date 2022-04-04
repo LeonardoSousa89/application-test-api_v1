@@ -50,7 +50,7 @@ server.route('/app/create-account').post(async(req, res)=>{
     return await db.insert(USER)
         .from('user_app')
         .then(_      => res.status(201).send('User created.'))
-        .catch(_     => res.status(400).send('Username or Email invalid.'))
+        .catch(_     => res.status(400).send('Was Ocurred an error.'))
  })
 
  server.route('/app/login').post(async(req,res)=>{

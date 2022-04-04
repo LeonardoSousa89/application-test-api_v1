@@ -7,7 +7,7 @@ const express   = require('express')
 const app       = express()
 
 app.use(cors({ methods:['GET','POST','PUT','DELETE'],
-               origin: '192.168.100.20:3003'
+               origin: '*'
 }))
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
