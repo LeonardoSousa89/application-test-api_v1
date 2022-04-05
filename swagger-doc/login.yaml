@@ -4,7 +4,7 @@ info:
   title: login
   description: login
 paths: 
-   /api/v1/users/login:
+   /app/login:
     post:
       summary: login
       parameters:
@@ -31,13 +31,13 @@ definitions:
     type: object
     required:
       - email
-      - senha
+      - password
     properties:
       email:
         type: string
         example: Neliojava@aws.com.br
         format: string
-      senha:
+      password:
         type: string
         example: 1234
         format: string
@@ -45,12 +45,17 @@ definitions:
     type: object
     required:
       - id
+      - auth
       - token
     properties:
-      id:
+      id_user:
         type: string
         example: 5
         format: string
+      auth:
+        type: boolean
+        example: true
+        format: boolean
       token:
         type: string
         example:  >- 
