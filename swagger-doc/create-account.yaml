@@ -1,0 +1,53 @@
+swagger: '2.0'
+info:
+  version: 2.0.0
+  title: create-account
+  description: create-account
+paths: 
+   /app/create-account:
+    post:
+      summary: create-account
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: '#/definitions/body_request'
+      responses:
+        201:
+          description: User created.
+          schema:
+            $ref: '#/definitions/body_response'
+        400:
+          description: Error message.
+        500:
+          description: Ocurred an error with the server.
+definitions:
+  body_request:
+    type: object
+    required:
+      - username
+      - email
+      - password
+    properties:
+      username:
+        type: string
+        example: Nelio Alves
+        format: string
+      email:
+        type: string
+        example: Neliojava@aws.com.br
+        format: string
+      password:
+        type: string
+        example: 1234
+        format: string
+  body_response:
+    type: object
+    required:
+     - message
+    properties:
+      message:
+        type: string
+        example: User created.
+        format: string

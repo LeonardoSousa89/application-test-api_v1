@@ -25,7 +25,7 @@ paths:
         404:
           description: User not found.
         500:
-          description: Ocurred an error with server.
+          description: Ocurred an error with the server.
 definitions:
   body_request:
     type: object

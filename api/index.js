@@ -50,7 +50,7 @@ server.route('/app/create-account').post(async(req, res)=>{
     return await db.insert(USER)
         .from('user_app')
         .then(_      => res.status(201).send('User created.'))
-        .catch(_     => res.status(400).send('Was Ocurred an error.'))
+        .catch(_     => res.status(500).send('Ocurred an error with the server.'))
  })
 
  server.route('/app/login').post(async(req,res)=>{
@@ -84,7 +84,7 @@ server.route('/app/create-account').post(async(req, res)=>{
                     _token: jsonwebtoken.sign({id_user: response.id_user},Secret,{ expiresIn: 60 * 5 }),
                             })
                 })
-                .catch(_ => res.status(500).send('Ocurred an error with server.'))
+                .catch(_ => res.status(500).send('Ocurred an error with the server.'))
         }
     }
  })
