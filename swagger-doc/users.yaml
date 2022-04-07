@@ -1,0 +1,78 @@
+swagger: '2.0'
+info:
+  version: 2.0.0
+  title: users
+  description: users
+paths: 
+   /app/users/:id:
+    get:
+      summary: users
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: '#/definitions/body_request'
+      responses:
+        201:
+          description: User created.
+          schema:
+            $ref: '#/definitions/body_response'
+        400:
+          description: Error message.
+        500:
+          description: Ocurred an error with the server.
+definitions:
+  body_request:
+    type: object
+    required:
+     - id_user
+     - auth
+     - _token
+    properties:
+      id_user:
+        type: string
+        example: 1
+        format: string
+      auth:
+        type: boolean
+        example: true
+        format: boolean
+      _token:
+        type: string
+        example:  >- 
+          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF5bGFuQGJvc2Nhcmluby5jb20iLCJwYXNzd29yZCI6InlhMGdzcWh5NHd6dnV2YjQifQ.yN_-Mge9mFgsnYHnPEh_ZzNP7YKvSbQ3Alug9HMCsM'
+  body_response:
+    type: object
+    required:
+     - id_user
+     - username
+     - email
+     - id_data
+     - title
+     - anotation
+    properties:
+      id_user:
+        type: string
+        example: 1
+        format: string
+      username:
+        type: string
+        example: Noah gallenger
+        format: string
+      email:
+        type: string
+        example: Noah@heroku.com.br
+        format: string
+      id_data:
+        type: string
+        example: 33
+        format: string
+      title:
+        type: string
+        example: node.js studies
+        format: string
+      anotation:
+        type: string
+        example: express,nodemon and pdSql elements node to advance my skills.
+        format: string
