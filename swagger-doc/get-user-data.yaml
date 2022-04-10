@@ -1,0 +1,51 @@
+swagger: '2.0'
+info:
+  version: 2.0.0
+  title: user data
+  description: user data
+paths: 
+   /app/users/data/:{id_user}:
+    post:
+      summary: user data
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: '#/definitions/body_request'
+      responses:
+        200:
+          description: OK.
+          schema:
+            $ref: '#/definitions/body_response'
+        500:
+          description: Ocurred an error with the server.
+definitions:
+  body_request:
+    type: object
+    required:
+      - x-access-token
+    properties:
+      x-access-token:
+        type: string
+        example: >- 
+          eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF5bGFuQGJvc2Nhcmluby5jb20iLCJwYXNzd29yZCI6InlhMGdzcWh5NHd6dnV2YjQifQ.yN_-Mge9mFgsnYHnPEh_ZzNP7YKvSbQ3Alug9HMCsM'
+  body_response:
+    type: object
+    required:
+      - id_user
+      - username
+      - email
+    properties:
+      id_user:
+        type: string
+        example: 5
+        format: string
+      username:
+        type: string
+        example: mendes89
+        format: string
+      email:
+        type: string
+        example: mendes89@gmail.com.br
+        format: string

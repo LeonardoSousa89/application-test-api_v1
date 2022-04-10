@@ -14,7 +14,7 @@ server.route('/app/users/data/:id').get(methods.authenticateUser,async(req,res)=
         .from('user_app')
         .where('id_user', req.params.id)
         .then(response => res.status(200).json(response))
-        .catch(err     => res.status(404).send(err))
+        .catch(err     => res.status(500).send('Ocurred an error with the server.'))
 })
 
 server.route('/app/users/:id').get(methods.authenticateUser,async(req, res)=>{
