@@ -89,7 +89,7 @@ server.route('/app/create-account').post(async(req, res)=>{
                 res.status(200).json({
                     id_user:response.id_user,
                     auth:true,
-                    _token: jsonwebtoken.sign({id_user: response.id_user},Secret,{ expiresIn: 60 * 5 }),
+                    _token: jsonwebtoken.sign({id_user: response.id_user},Secret,{ expiresIn: 60 * 60 }),
                             })
                 })
                 .catch(_ => res.status(500).send('Ocurred an error with the server.'))
