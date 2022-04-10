@@ -14,8 +14,8 @@ paths:
         schema:
           $ref: '#/definitions/body_request'
       responses:
-        201:
-          description: User created.
+        200:
+          description: Ok.
           schema:
             $ref: '#/definitions/body_response'
         400:
@@ -26,19 +26,9 @@ definitions:
   body_request:
     type: object
     required:
-     - id_user
-     - auth
-     - _token
+     - x-access-token
     properties:
-      id_user:
-        type: string
-        example: 1
-        format: string
-      auth:
-        type: boolean
-        example: true
-        format: boolean
-      _token:
+      x-access-token:
         type: string
         example:  >- 
           eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF5bGFuQGJvc2Nhcmluby5jb20iLCJwYXNzd29yZCI6InlhMGdzcWh5NHd6dnV2YjQifQ.yN_-Mge9mFgsnYHnPEh_ZzNP7YKvSbQ3Alug9HMCsM'

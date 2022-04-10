@@ -18,8 +18,6 @@ paths:
           description: User created.
           schema:
             $ref: '#/definitions/body_response'
-        400:
-          description: Error message.
         500:
           description: Ocurred an error with the server.
 definitions:

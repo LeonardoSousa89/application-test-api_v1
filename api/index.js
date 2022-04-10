@@ -24,7 +24,7 @@ server.route('/app/users/:id').get(methods.authenticateUser,async(req, res)=>{
         .join('user_app_data','id_user','id_user_app_data')
         .where('id_user', req.params.id)
         .then(response => res.status(200).json(response))
-        .catch(err     => res.status(404).send(err))
+        .catch(err     => res.status(500).send('Ocurred an error with the server.'))
 
 }).post(methods.authenticateUser,async(req, res)=>{
     const USER = { ...req.body }
@@ -38,7 +38,7 @@ server.route('/app/users/:id').get(methods.authenticateUser,async(req, res)=>{
     return await db.insert(data)
         .from('user_app_data')
         .then(_        => res.status(201).send('Data inserted.'))
-        .catch(err     => res.status(404).send(err))
+        .catch(_       => res.status(500).send('Ocurred an error with the server.'))
 })
 
 server.route('/app/create-account').post(async(req, res)=>{
