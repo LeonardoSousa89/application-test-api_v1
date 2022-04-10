@@ -9,6 +9,14 @@ const jsonwebtoken  = require('jsonwebtoken')
 
 
 
+server.route('/app/users/data/:id').get(methods.authenticateUser,async(req,res)=>{
+    return await db.select(['id_user','username','email'])
+        .from('user_app')
+        .where('id_user', req.params.id)
+        .then(response => res.status(200).json(response))
+        .catch(err     => res.status(404).send(err))
+})
+
 server.route('/app/users/:id').get(methods.authenticateUser,async(req, res)=>{
 
    return await db.select(['id_user','username','email','id_data','title','anotation'])
