@@ -6,9 +6,12 @@ const log       = require('morgan')
 const express   = require('express')
 const app       = express()
 
-app.use(cors({  
-    origin:'https://anotation-app.herokuapp.com' 
-}))
+const headers = new Headers()
+headers.append('Access-control-Allow-Origin','https://anotation-app.herokuapp.com')
+headers.append('Access-control-Allow-Credentials',true)
+headers.append('Access-control-Allow-Headers','Origin, Content-Type, Accept, Authorization')
+
+app.use(cors(headers))
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.use(log('dev'))
