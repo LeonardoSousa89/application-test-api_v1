@@ -6,7 +6,7 @@ const log       = require('morgan')
 const express   = require('express')
 const app       = express()
 
-app.use(cors({  origin:'https://anotation-app.herokuapp.com/app/login' }))
+app.use(cors({  origin:'https://anotation-app.herokuapp.com' }))
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.use(log('dev'))
