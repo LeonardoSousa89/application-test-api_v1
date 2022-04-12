@@ -6,8 +6,7 @@ const log       = require('morgan')
 const express   = require('express')
 const app       = express()
 
-app.use(cors({ methods:['GET','POST','PUT','DELETE'],
-               origin:'https://anotation-app.herokuapp.com'
+app.use(cors({ origin:'*'
 }))
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
@@ -18,3 +17,4 @@ app.listen(process.env.PORT || _port,()=>{
     console.log(`localhost:${_port}`)
 })
 
+// methods:['GET','POST','PUT','DELETE'],
