@@ -1,13 +1,14 @@
 const _port     = 3002
 
 const server    = require('./api/index')
-const policy      = require('policy') 
+const cors      = require('cors') 
 const log       = require('morgan') 
 const express   = require('express')
 const app       = express()
 
-app.use(policy({ methods:['GET','POST','PUT','DELETE'],
-               origin:'https://anotation-app.herokuapp.com'
+app.use(cors({ methods:['GET','POST','PUT','DELETE'],
+               origin:'https://anotation-app.herokuapp.com',
+               credentials:true
 }))
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
