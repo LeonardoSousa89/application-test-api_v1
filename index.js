@@ -7,7 +7,7 @@ const express   = require('express')
 const app       = express()
 
 app.use(cors({ methods:['GET','POST','PUT','DELETE'],
-               origin: 'https://anotation-app.herokuapp.com'
+               origin: 'https://anotation-app.herokuapp.com/'
 }))
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
