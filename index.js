@@ -7,7 +7,7 @@ const express   = require('express')
 const app       = express()
 
 app.use(cors({ methods:['GET','POST','PUT','DELETE'],
-               origin:['https://anotation-api.herokuapp.com/app/login'],
+               origin:'https://anotation-api.herokuapp.com/app/login',
                credentials:true
 }))
 app.use(express.urlencoded({extended:true}))
